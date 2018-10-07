@@ -9,7 +9,7 @@
 int main(void)
 {
     long long number, digit_base10;
-    int nDigits, digit, first_digit, second_digit, summation = 0;
+    int nDigits, digit, first_digit, second_digit, summation_mod_10, summation = 0;
     do
     {
         number = get_long_long("Number: ");
@@ -23,6 +23,7 @@ int main(void)
         digit_base10 = fmod(number, (pow(10, i + 1)));
         number = number - digit_base10;
         digit = digit_base10 / pow(10, i);
+
         if (i == nDigits - 1)
         {
             first_digit = digit;
@@ -50,19 +51,22 @@ int main(void)
         }
     }
 
+    summation_mod_10 = fmod(summation, 10);
+
     // Visa uses 13- and 16-digit numbers and all start with 4
-    if (((fmod(summation, 10)) == 0) && (first_digit == 4) && (nDigits == 13 || nDigits == 16))
+    if ((summation_mod_10 == 0) && (first_digit == 4) && (nDigits == 13 || nDigits == 16))
     {
         printf("VISA\n");
     }
     // American Express uses 15-digit numbers and all start with 34 or 37
-    else if (((fmod(summation, 10)) == 0) && ((first_digit == 3) && ((second_digit == 4) || (second_digit == 7))) && (nDigits == 15))
+    else if ((summation_mod_10 == 0) && ((first_digit == 3) && ((second_digit == 4) || (second_digit == 7))) && (nDigits == 15))
     {
         printf("AMEX\n");
     }
     // MasterCard uses 16-digit numbers and  all start with 51, 52, 53, 54, or 55
-    else if (((fmod(summation, 10)) == 0) && (((first_digit == 5) && ((second_digit == 1) || (second_digit == 2) || (second_digit == 3)
-             || (second_digit == 4) || (second_digit == 5)))) && (nDigits == 16))
+    else if ((summation_mod_10 == 0)
+             && (((first_digit == 5) && ((second_digit == 1) || (second_digit == 2) || (second_digit == 3)
+                                         || (second_digit == 4) || (second_digit == 5)))) && (nDigits == 16))
     {
         printf("MASTERCARD\n");
     }

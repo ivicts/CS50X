@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <cs50.h>
+#define MAX_HEIGHT 23
+#define MIN_HEIGHT 0
+
 // Victor Getty
 // 15th June 2018
 // Prints out a double half-pyramid of a specified height
@@ -12,7 +15,7 @@ int main(void)
     {
         height = get_int("Height: ");
     }
-    while (height < 0 || height > 23);
+    while (height < MIN_HEIGHT || height > MAX_HEIGHT);
 
     for (int i = 1; i < height + 1; i++)
     {
